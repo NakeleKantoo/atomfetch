@@ -20,7 +20,7 @@ local function split(str, sep)
     return result
 end
   
-Elements = lines_from("info.txt")
+Elements = lines_from("/etc/atomfetchInfo.txt")
 function SearchFor(name)
     for index,item in ipairs(Elements) do
         Now = split(item, "|")
