@@ -1,2 +1,4 @@
 # atomfetch
-Fecth the properties of any atom in the periodic table
+Fecth the properties of any element in the periodic table!
+## Installing:
+Download the repo as a zip, unzip it and run the install script!
