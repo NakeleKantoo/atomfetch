@@ -1,0 +1,181 @@
+#!/bin/lua
+
+ver="0.0.2"
+desc="Fetch the properties of any atom by name or by atomic number"
+
+function lines_from(file)
+    local lines = {}
+    for line in io.lines(file) do 
+      lines[#lines + 1] = line
+    end
+    return lines
+end
+
+local function split(str, sep)
+    local result = {}
+    local regex = ("([^%s]+)"):format(sep)
+    for each in str:gmatch(regex) do
+       table.insert(result, each)
+    end
+    return result
+end
+  
+Elements = lines_from("/etc/atomfetch/info.txt")
+Config = lines_from("/etc/atomfetch/config.txt")
+function SearchFor(name)
+    for index,item in ipairs(Elements) do
+        Now = split(item, "|")
+        if string.lower(Now[2]) == name then
+            return item
+        end
+    end
+end
+
+
+
+if arg[1]=="-number" then
+    element=Elements[arg[2]+1]
+    newElement = split(element, "|")
+end
+
+if arg[1]=="-name" then
+    element=SearchFor(string.lower(arg[2]))
+    --element=Elements[elementNumber]
+    newElement=split(element, "|")
+end
+if arg[1]=="-h" then
+    print("AtomFetch: "..desc)
+    print("Version: "..ver)
+    print("Flags:")
+    print("-number [Atomic Number] Search by atomic number")
+    print("-name [Name] Search by name")
+    os.exit(0)
+end
+
+name=0
+atnumber=0
+symbol=0
+group=0
+period=0
+phase=0
+radioactive=0
+natural=0
+metal=0
+nonmetal=0
+nneutrons=0
+nprotons=0
+neletrons=0
+metalloid=0
+atomicradius=0
+density=0
+boiling=0
+nisotopes=0
+discoverer=0
+year=0
+specificheat=0
+electronegativity=0
+nshells=0
+nvalence=0
+
+
+for index,value in ipairs(Config) do    
+    newValue = split(value,"=")
+    if newValue[1]=="name" then
+        name=newValue[2]
+    end
+    if newValue[1]=="atomicnumber" then
+        atnumber=newValue[2]
+    end
+    if newValue[1]=="symbol" then
+        symbol=newValue[2]
+    end
+    if newValue[1]=="group" then
+        group=newValue[2]
+    end
+    if newValue[1]=="period" then
+        period=newValue[2]
+    end
+    if newValue[1]=="phase" then
+        phase=newValue[2]
+    end
+    if newValue[1]=="radioactive" then
+        radioactive=newValue[2]
+    end
+    if newValue[1]=="natural" then
+        natural=newValue[2]
+    end
+    if newValue[1]=="metal" then
+        metal=newValue[2]
+    end
+    if newValue[1]=="nonmetal" then
+        nonmetal=newValue[2]
+    end
+    if newValue[1]=="numberprotons" then
+        nprotons=newValue[2]
+    end
+    if newValue[1]=="numbereletrons" then
+        neletrons=newValue[2]
+    end
+    if newValue[1]=="numberneutrons" then
+        nneutrons=newValue[2]
+    end
+    if newValue[1]=="metalloid" then
+        metalloid=newValue[2]
+    end
+    if newValue[1]=="atomicradius" then
+        atomicradius=newValue[2]
+    end
+    if newValue[1]=="density" then
+        density=newValue[2]
+    end
+    if newValue[1]=="boiling" then
+        boiling=newValue[2]
+    end
+    if newValue[1]=="numberisotopes" then
+        nisotopes=newValue[2]
+    end
+    if newValue[1]=="discoverer" then
+        discoverer=newValue[2]
+    end
+    if newValue[1]=="year" then
+        year=newValue[2]
+    end
+    if newValue[1]=="specificheat" then
+        specificheat=newValue[2]
+    end
+    if newValue[1]=="eletronegativity" then
+        electronegativity=newValue[2]
+    end
+    if newValue[1]=="numbershells" then
+        nshells=newValue[2]
+    end
+    if newValue[1]=="numbervalence" then
+        nvalence=newValue[2]
+    end
+end
+
+if name=="1" then print("Name: "..newElement[2]) end
+if atnumber=="1" then print("Atomic Number: "..newElement[1]) end
+if symbol=="1" then print("Symbol: "..newElement[3]) end
+if group=="1" then print("Group: "..newElement[9]) end
+if period=="1" then print("Period: "..newElement[8]) end
+if phase=="1" then print("Phase: "..newElement[10]) end
+if radioactive=="1" then print("Radioactive: "..newElement[11]) end
+if natural=="1" then print("Natural: "..newElement[12]) end
+if metal=="1" then print("Metal: "..newElement[13]) end
+if nonmetal=="1" then print("NonMetal: "..newElement[14]) end
+if nneutrons=="1" then print("Number of Neutrons: "..newElement[5]) end
+if nprotons=="1" then print("Number of Protons: "..newElement[6]) end
+if neletrons=="1" then print("Number of Eletrons: "..newElement[7]) end
+if metalloid=="1" then print("Metalloid: "..newElement[15]) end
+if atomicradius=="1" then print("Atomic radius: "..newElement[17]) end
+if density=="1" then print("Density: "..newElement[20]) end
+if boiling=="1" then print("Boiling: "..newElement[22]) end
+if nisotopes=="1" then print("Number of Isotopes: "..newElement[23]) end
+if discoverer=="1" then print("Discoverer: "..newElement[24]) end
+if year=="1" then print("Year of discovery: "..newElement[25]) end
+if specificheat=="1" then print("Specific Heat: "..newElement[26]) end
+if electronegativity=="1" then print("Eletron Negativity: "..newElement[27]) end
+if nshells=="1" then print("Number of Shells: "..newElement[28]) end
+if nvalence=="1" then print("Number of Valence: "..newElement[29]) end
+--AtomicNumber|Element|Symbol|AtomicMass|NumberofNeutrons|NumberofProtons|NumberofElectrons|Period|Group|Phase|Radioactive|Natural|Metal|Nonmetal|Metalloid|Type|AtomicRadius|Electronegativity|FirstIonization|Density|MeltingPoint|BoilingPoint|NumberOfIsotopes|Discoverer|Year|SpecificHeat|NumberofShells|NumberofValence

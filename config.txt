@@ -1,0 +1,25 @@
+#Edit this file as you wish!
+name=1
+atnumber=1
+symbol=1
+group=1
+period=0
+phase=0
+radioactive=1
+natural=0
+metal=0
+nonmetal=0
+numberneutrons=0
+numberprotons=0
+nnumbereletrons=0
+metalloid=0
+atomicradius=0
+density=0
+boiling=0
+numberisotopes=0
+discoverer=0
+year=0
+specificheat=0
+electronegativity=0
+numbershells=0
+numbervalence=0
